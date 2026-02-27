@@ -1,187 +1,204 @@
 'use client'
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    checkin: "",
-    checkout: ""
-  });
+  const [price, setPrice] = useState(1200);
+  const [nights, setNights] = useState(1);
+  const [total, setTotal] = useState(1200);
+
+  useEffect(() => {
+    setTotal(price * nights);
+  }, [price, nights]);
 
   return (
-    <div style={{
-      fontFamily:"'Segoe UI', sans-serif",
-      background:"#0f0f0f",
-      color:"#fff",
-      lineHeight:"1.6"
-    }}>
+    <div className="wrapper">
 
       {/* NAVBAR */}
-      <nav style={{
-        position:"fixed",
-        width:"100%",
-        top:0,
-        padding:"20px 10%",
-        display:"flex",
-        justifyContent:"space-between",
-        background:"rgba(0,0,0,0.7)",
-        backdropFilter:"blur(10px)",
-        zIndex:1000
-      }}>
-        <h2 style={{color:"#d4af37"}}>HOTEL POGÓRZE</h2>
-        <div style={{display:"flex", gap:"20px"}}>
-          <a href="#about" style={{color:"#fff", textDecoration:"none"}}>Apartament</a>
-          <a href="#booking" style={{color:"#fff", textDecoration:"none"}}>Rezerwacja</a>
-          <a href="#contact" style={{color:"#fff", textDecoration:"none"}}>Kontakt</a>
+      <nav className="nav">
+        <div className="logo">HOTEL POGÓRZE</div>
+        <div className="menu">
+          <a href="#rooms">Apartament</a>
+          <a href="#gallery">Galeria</a>
+          <a href="#booking">Rezerwacja</a>
+          <a href="#contact">Kontakt</a>
         </div>
       </nav>
 
       {/* HERO */}
-      <section style={{
-        height:"100vh",
-        backgroundImage:"url('https://images.unsplash.com/photo-1501117716987-c8e1ecb21014')",
-        backgroundSize:"cover",
-        backgroundPosition:"center",
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
-        textAlign:"center"
-      }}>
-        <div style={{background:"rgba(0,0,0,0.6)", padding:"60px", borderRadius:"20px"}}>
-          <h1 style={{fontSize:"70px", marginBottom:"20px", letterSpacing:"3px"}}>
-            LUKSUS W SERCU Tuchowa
-          </h1>
-          <p style={{fontSize:"22px", color:"#ddd"}}>
-            Prywatność • Komfort • Najwyższy Standard
-          </p>
+      <section className="hero">
+        <div className="hero-overlay">
+          <h1>Luxury Redefined</h1>
+          <p>Prywatność. Komfort. Absolutna jakość.</p>
         </div>
       </section>
 
-      {/* ABOUT */}
-      <section id="about" style={{padding:"120px 10%", textAlign:"center"}}>
-        <h2 style={{fontSize:"40px", color:"#d4af37", marginBottom:"30px"}}>
-          Apartament Premium
-        </h2>
-        <p style={{maxWidth:"800px", margin:"0 auto", fontSize:"18px", color:"#ccc"}}>
-          Nowoczesny apartament zaprojektowany z myślą o najbardziej wymagających gościach.
-          Eleganckie wnętrza, najwyższa jakość materiałów i wyjątkowa atmosfera.
+      {/* ROOMS */}
+      <section id="rooms" className="section">
+        <h2>Apartament Premium</h2>
+        <p>
+          70m² luksusu zaprojektowanego z myślą o najbardziej wymagających gościach.
+          Smart system, prywatność, cisza i najwyższy standard wykończenia.
         </p>
       </section>
 
-      {/* AMENITIES */}
-      <section style={{background:"#111", padding:"100px 10%"}}>
-        <h2 style={{textAlign:"center", fontSize:"40px", color:"#d4af37", marginBottom:"60px"}}>
-          Udogodnienia
-        </h2>
-
-        <div style={{
-          display:"grid",
-          gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",
-          gap:"40px",
-          textAlign:"center"
-        }}>
-          {[
-            "🛏 Klimatyzacja",
-            "📶 Szybkie WiFi",
-            "🚗 Prywatny Parking",
-            "☕ Ekspres Premium",
-            "📺 Smart TV 65\"",
-            "🛁 Łazienka Luxury",
-            "🔐 Smart Lock",
-            "🍷 Mini Bar"
-          ].map((item, index) => (
-            <div key={index} style={{
-              background:"#1a1a1a",
-              padding:"40px",
-              borderRadius:"15px",
-              transition:"0.3s",
-              border:"1px solid #222"
-            }}>
-              {item}
-            </div>
-          ))}
-        </div>
+      {/* GALLERY */}
+      <section id="gallery" className="gallery">
+        {[
+          "https://images.unsplash.com/photo-1505691938895-1758d7feb511",
+          "https://images.unsplash.com/photo-1501117716987-c8e1ecb21014",
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945"
+        ].map((img, i) => (
+          <div key={i} className="gallery-item" style={{backgroundImage:`url(${img})`}} />
+        ))}
       </section>
 
       {/* BOOKING */}
-      <section id="booking" style={{padding:"120px 10%", textAlign:"center"}}>
-        <h2 style={{fontSize:"40px", color:"#d4af37", marginBottom:"50px"}}>
-          Rezerwacja
-        </h2>
+      <section id="booking" className="section booking">
+        <h2>Rezerwacja Online</h2>
 
-        <form style={{
-          maxWidth:"500px",
-          margin:"0 auto",
-          display:"flex",
-          flexDirection:"column",
-          gap:"20px"
-        }}>
-          <input placeholder="Imię i nazwisko" style={inputStyle}/>
-          <input placeholder="Email" style={inputStyle}/>
-          <input type="date" style={inputStyle}/>
-          <input type="date" style={inputStyle}/>
-          <button style={{
-            background:"#d4af37",
-            color:"#000",
-            padding:"18px",
-            border:"none",
-            fontWeight:"bold",
-            fontSize:"16px",
-            cursor:"pointer",
-            borderRadius:"8px",
-            transition:"0.3s"
-          }}>
-            Zarezerwuj Teraz
-          </button>
-        </form>
-      </section>
+        <div className="booking-box">
+          <div>
+            <label>Liczba nocy</label>
+            <input 
+              type="number"
+              min="1"
+              value={nights}
+              onChange={(e)=>setNights(e.target.value)}
+            />
+          </div>
 
-      {/* MAP */}
-      <section style={{padding:"120px 10%", background:"#111"}}>
-        <h2 style={{textAlign:"center", fontSize:"40px", color:"#d4af37", marginBottom:"40px"}}>
-          Lokalizacja
-        </h2>
+          <div>
+            <label>Cena za noc (PLN)</label>
+            <select onChange={(e)=>setPrice(e.target.value)}>
+              <option value="1200">Standard – 1200 PLN</option>
+              <option value="1500">Premium – 1500 PLN</option>
+              <option value="1800">VIP – 1800 PLN</option>
+            </select>
+          </div>
 
-        <iframe
-          src="https://www.google.com/maps?q=Tuchów&output=embed"
-          width="100%"
-          height="450"
-          style={{borderRadius:"15px", border:"none"}}
-          loading="lazy"
-        ></iframe>
+          <div className="total">
+            Łącznie: <span>{total} PLN</span>
+          </div>
+
+          <button>Zarezerwuj Teraz</button>
+        </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contact" style={{padding:"120px 10%", textAlign:"center"}}>
-        <h2 style={{fontSize:"40px", color:"#d4af37", marginBottom:"30px"}}>
-          Kontakt
-        </h2>
+      <section id="contact" className="section contact">
+        <h2>Kontakt</h2>
         <p>Email: kontakt@hotelpogorze.pl</p>
         <p>Tel: +48 000 000 000</p>
       </section>
 
-      {/* FOOTER */}
-      <footer style={{
-        background:"#000",
-        padding:"40px",
-        textAlign:"center",
-        borderTop:"1px solid #222"
-      }}>
-        <p style={{color:"#777"}}>© 2026 Hotel Pogórze – Wszelkie prawa zastrzeżone</p>
+      <footer>
+        © 2026 Hotel Pogórze – Luxury Experience
       </footer>
+
+      <style jsx>{`
+        html { scroll-behavior: smooth; }
+        .wrapper { background:#0f0f0f; color:white; font-family:sans-serif; }
+
+        .nav {
+          position:fixed;
+          width:100%;
+          display:flex;
+          justify-content:space-between;
+          padding:20px 10%;
+          backdrop-filter:blur(10px);
+          background:rgba(0,0,0,0.6);
+          z-index:1000;
+        }
+
+        .logo { color:#d4af37; font-weight:bold; letter-spacing:2px; }
+
+        .menu a {
+          margin-left:20px;
+          text-decoration:none;
+          color:white;
+        }
+
+        .hero {
+          height:100vh;
+          background-image:url("https://images.unsplash.com/photo-1501117716987-c8e1ecb21014");
+          background-size:cover;
+          background-position:center;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        }
+
+        .hero-overlay {
+          background:rgba(0,0,0,0.6);
+          padding:60px;
+          border-radius:20px;
+          text-align:center;
+        }
+
+        .hero h1 {
+          font-size:70px;
+          margin-bottom:20px;
+          color:#d4af37;
+        }
+
+        .section {
+          padding:120px 10%;
+          text-align:center;
+        }
+
+        .gallery {
+          display:grid;
+          grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+        }
+
+        .gallery-item {
+          height:400px;
+          background-size:cover;
+          background-position:center;
+          transition:0.4s;
+        }
+
+        .gallery-item:hover {
+          transform:scale(1.05);
+        }
+
+        .booking-box {
+          max-width:500px;
+          margin:auto;
+          display:flex;
+          flex-direction:column;
+          gap:20px;
+        }
+
+        input, select {
+          padding:12px;
+          background:#1a1a1a;
+          border:1px solid #333;
+          color:white;
+        }
+
+        .total span {
+          color:#d4af37;
+          font-size:22px;
+        }
+
+        button {
+          padding:15px;
+          background:#d4af37;
+          border:none;
+          font-weight:bold;
+          cursor:pointer;
+        }
+
+        footer {
+          padding:40px;
+          text-align:center;
+          background:black;
+        }
+
+      `}</style>
 
     </div>
   );
-}
-
-const inputStyle = {
-  padding:"15px",
-  borderRadius:"8px",
-  border:"1px solid #333",
-  background:"#1a1a1a",
-  color:"#fff",
-  fontSize:"15px"
 }
