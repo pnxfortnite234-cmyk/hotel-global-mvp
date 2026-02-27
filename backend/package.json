@@ -1,0 +1,17 @@
+
+{
+  "name": "hotel-global-backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "@prisma/client": "^5.7.0",
+    "stripe": "^14.0.0"
+  }
+}

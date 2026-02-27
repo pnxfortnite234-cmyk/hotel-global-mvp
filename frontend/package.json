@@ -1,0 +1,14 @@
+
+{
+  "name": "hotel-global-frontend",
+  "private": true,
+  "scripts": {
+    "dev": "next dev"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "axios": "^1.6.0"
+  }
+}
